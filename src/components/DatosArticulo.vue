@@ -3,7 +3,7 @@
 		<v-app id="inspire">
 			<v-data-table
 				:headers="headers"
-				:items="articulo"
+				:items="articulos"
 				sort-by="nombre"
 				class="elevation-1"
         :loading="carga"
@@ -36,6 +36,12 @@
 										<v-row>
 											<v-col cols="12" sm="6" md="4">
 												<v-text-field
+													v-model="editedItem.id"
+													label="ID"
+												></v-text-field>
+											</v-col>
+											<v-col cols="12" sm="6" md="4">
+												<v-text-field
 													v-model="editedItem.nombre"
 													label="NOMBRE"
 												></v-text-field>
@@ -57,6 +63,16 @@
 													v-model="editedItem.estado"
 													label="ESTADO"
 												></v-text-field>
+											</v-col>
+											<v-col cols="12" sm="6" md="4">
+												<v-select
+													v-model="categoria"
+													label="CATEGORIA"
+													:items="categorias"
+													item-text="nombre"
+													item-value="id"
+													return-object
+												></v-select>
 											</v-col>
 										</v-row>
 									</v-container>
@@ -92,7 +108,7 @@
 					<v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
 				</template>
 				<template v-slot:no-data>
-					<v-btn color="primary" @click="initialize"> RESTAURAR </v-btn>
+					<v-btn color="primary" @click="list"> RESTAURAR </v-btn>
 				</template>
 			</v-data-table>
 		</v-app>
@@ -120,27 +136,40 @@ export default {
 				text: "ARTICULO",
 				align: "start",
 				sortable: true,
-				value: "nombre",
+				value: 'nombre',
 			},
-			{ text: "DESCRIPCION", value: "descripcion" },
-			{ text: "CODIGO", value: "codigo" },
-			{ text: "ESTADO", value: "estado" },
-			{ text: "ACCION", value: "Accion", sortable: false },
+			{ text: "DESCRIPCION", value: 'descripcion' },
+			{ text: "CODIGO", value: 'codigo' },
+			{ text: "ESTADO", value: 'estado' },
+			{ text: "CATEGORIA", value: 'categoria.nombre' },
+			{ text: "ACCION", value: 'Accion', sortable: false },
 		],
 		desserts: [],
-		articulo: [],
+		categorias: [],
+		categoria: '',
+		articulos: [],
 		editedIndex: -1,
 		editedItem: {
-			nombre: "",
-			descripcion: "",
-			codigo: "",
+			id: 0,
+			nombre: '',
+			descripcion: '',
+			codigo: '',
 			estado: 0,
+			categoria:{
+				id: 0,
+				nombre: ''
+			}
 		},
 		defaultItem: {
-			nombre: "",
-			descripcion: "",
-			codigo: "",
+			id: 0,
+			nombre: '',
+			descripcion: '',
+			codigo: '',
 			estado: 0,
+			categoria:{
+				id: 0,
+				nombre: ''
+			}
 		},
 	}),
 
@@ -161,21 +190,54 @@ export default {
 
 	created() {
 		this.list();
+		this.listCategorias()
 	},
    /* metodo initialize desaparece */
 	methods: {
 		list() {
-			axios
-				.get("http://localhost:3000/api/articulo/list")
+			axios.get("http://localhost:3000/api/articulo/list")
 				.then((response) => {
-          this.articulo = response.data;
+          this.articulos = response.data;
+          this.carga = false;
+				})
+				.catch(error);
+		},
+		listCategorias(){
+			axios.get("http://localhost:3000/api/categoria/list")
+				.then((response) => {
+          this.categorias = response.data;
           this.carga = false;
 				})
 				.catch(error);
 		},
 
+		update(){
+			if (this.editItem.estado === 1){
+				axios.put("http://localhost:3000/api/articulo/deactivate",{
+				"id": this.editItem-id,
+				})
+				.then(response =>{
+					this-this.list();
+				})
+				.catch(error =>{
+					return error;
+				})
+			}else{
+				axios.put("http://localhost:3000/api/articulo/activate",{
+				"id": this.editItem-id,	
+				})
+				.then(response =>{
+					this.list();
+				})
+				.catch(error =>{
+					return error;
+				})
+			} this.closeDelete;
+		},
+
 		editItem(item) {
-			this.editedIndex = this.desserts.indexOf(item);
+			this.editedIndex = item.id;
+			this.categoria = item? item.categoria: '';
 			this.editedItem = Object.assign({}, item);
 			this.dialog = true;
 		},
@@ -195,6 +257,7 @@ export default {
 			this.dialog = false;
 			this.$nextTick(() => {
 				this.editedItem = Object.assign({}, this.defaultItem);
+				this.categoria = '';
 				this.editedIndex = -1;
 			});
 		},
@@ -209,14 +272,34 @@ export default {
 
 		save() {
 			if (this.editedIndex > -1) {
-				Object.assign(this.desserts[this.editedIndex], this.editedItem);
+				axios.put('http://localhost:3000/api/articulo/update',{
+					"id": this.editItem.id,
+					"nombre": this.editItem.nombre,
+					"descripcion": this.editItem.descripcion,
+					"codigo": this.editItem.codigo,
+					"categoria":this.categoria.id
+				})
+					.then(response =>{
+						this.list();
+					})
+					.catch(error =>{
+					return error;
+				})
 			} else {
-				this.desserts.push(this.editedItem);
-			}
-			this.close();
-		},
-	},
-};
+				axios.put('http://localhost:3000/api/articulo/add',{
+					"id": this.editItem.id,
+					"nombre": this.editItem.nombre,
+					"descripcion": this.editItem.descripcion,
+					"codigo": this.editItem.codigo,
+					"categoriaId":this.categoria.id
+					})
+					.catch(error =>{
+					return error;
+					})
+			} this.close();
+		}
+	}
+}
 </script>
 
 <style scoped>

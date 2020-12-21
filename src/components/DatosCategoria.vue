@@ -3,7 +3,7 @@
 		<v-app id="inspire">
 			<v-data-table
 				:headers="headers"
-				:items="categoria"
+				:items="categorias"
 				sort-by="nombre"
 				class="elevation-1"
         :loading="carga"
@@ -36,8 +36,14 @@
 										<v-row>
 											<v-col cols="12" sm="6" md="4">
 												<v-text-field
+													v-model="editedItem.id"
+													label="ID"
+												></v-text-field>
+											</v-col>
+											<v-col cols="12" sm="6" md="4">
+												<v-text-field
 													v-model="editedItem.nombre"
-													label="Nombre"
+													label="NOMBRE"
 												></v-text-field>
 											</v-col>
 											<v-col cols="12" sm="6" md="4">
@@ -86,7 +92,7 @@
 					<v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
 				</template>
 				<template v-slot:no-data>
-					<v-btn color="primary" @click="initialize"> RESTAURAR </v-btn>
+					<v-btn color="primary" @click="list"> RESTAURAR </v-btn>
 				</template>
 			</v-data-table>
 		</v-app>
@@ -114,23 +120,25 @@ export default {
 				text: "CATEGORIA",
 				align: "start",
 				sortable: true,
-				value: "nombre",
+				value: 'nombre',
 			},
-			{ text: "DESCRIPCION", value: "descripcion" },
-			{ text: "ESTADO", value: "estado" },
-			{ text: "ACCION", value: "Accion", sortable: false },
+			{ text: "DESCRIPCION", value: 'descripcion' },
+			{ text: "ESTADO", value: 'estado' },
+			{ text: "ACCION", value: 'accion', sortable: false },
 		],
 		desserts: [],
-		categoria: [],
+		categorias: [],
 		editedIndex: -1,
 		editedItem: {
-			nombre: "",
-			descripcion: "",
+			id: 0,
+			nombre: '',
+			descripcion: '',
 			estado: 0,
 		},
 		defaultItem: {
-			nombre: "",
-			descripcion: 0,
+			id: 0,
+			nombre: '',
+			descripcion: '',
 			estado: 0,
 		},
 	}),
@@ -159,7 +167,7 @@ export default {
 			axios
 				.get("http://localhost:3000/api/categoria/list")
 				.then((response) => {
-          this.categoria = response.data;
+          this.categorias = response.data;
           this.carga = false;
 				})
 				.catch(error);
