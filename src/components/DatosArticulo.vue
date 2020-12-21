@@ -3,7 +3,7 @@
 		<v-app id="inspire">
 			<v-data-table
 				:headers="headers"
-				:items="categoria"
+				:items="articulo"
 				sort-by="nombre"
 				class="elevation-1"
         :loading="carga"
@@ -11,7 +11,7 @@
 			>
 				<template v-slot:top>
 					<v-toolbar flat>
-						<v-toolbar-title>CATEGORIAS</v-toolbar-title>
+						<v-toolbar-title>ARTICULOS</v-toolbar-title>
 						<v-divider class="mx-4" inset vertical></v-divider>
 						<v-spacer></v-spacer>
 						<v-dialog v-model="dialog" max-width="500px">
@@ -23,7 +23,7 @@
 									v-bind="attrs"
 									v-on="on"
 								>
-									NUEVA CATEGORIA
+									NUEVO ARTICULO
 								</v-btn>
 							</template>
 							<v-card>
@@ -37,31 +37,25 @@
 											<v-col cols="12" sm="6" md="4">
 												<v-text-field
 													v-model="editedItem.nombre"
-													label="Nombre"
+													label="NOMBRE"
 												></v-text-field>
 											</v-col>
 											<v-col cols="12" sm="6" md="4">
 												<v-text-field
-													v-model="editedItem.calories"
-													label="Calories"
+													v-model="editedItem.descripcion"
+													label="DESCRIPCION"
 												></v-text-field>
 											</v-col>
 											<v-col cols="12" sm="6" md="4">
 												<v-text-field
-													v-model="editedItem.fat"
-													label="Fat (g)"
+													v-model="editedItem.codigo"
+													label="CODIGO"
 												></v-text-field>
 											</v-col>
 											<v-col cols="12" sm="6" md="4">
 												<v-text-field
-													v-model="editedItem.carbs"
-													label="Carbs (g)"
-												></v-text-field>
-											</v-col>
-											<v-col cols="12" sm="6" md="4">
-												<v-text-field
-													v-model="editedItem.protein"
-													label="Protein (g)"
+													v-model="editedItem.estado"
+													label="ESTADO"
 												></v-text-field>
 											</v-col>
 										</v-row>
@@ -73,7 +67,7 @@
 									<v-btn color="blue darken-1" text @click="close">
 										CANCELAR
 									</v-btn>
-									<v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+									<v-btn color="blue darken-1" text @click="save"> GUARDAR </v-btn>
 								</v-card-actions>
 							</v-card>
 						</v-dialog>
@@ -83,7 +77,7 @@
 								<v-card-actions>
 									<v-spacer></v-spacer>
 									<v-btn color="blue darken-1" text @click="closeDelete">CANCELAR</v-btn>
-									<v-btn color="blue darken-1" text @click="deleteItemConfirm">CONFIRMADO</v-btn>
+									<v-btn color="blue darken-1" text @click="deleteItemConfirm">CONFIRMAR</v-btn>
 									<v-spacer></v-spacer>
 								</v-card-actions>
 							</v-card>
@@ -123,26 +117,29 @@ export default {
       text: 'ID', value: 'id'
     },
 			{
-				text: "Categoria",
+				text: "ARTICULO",
 				align: "start",
 				sortable: true,
 				value: "nombre",
 			},
-			{ text: "Descripcion", value: "descripcion" },
-			{ text: "Estado", value: "estado" },
-			{ text: "Accion", value: "Accion", sortable: false },
+			{ text: "DESCRIPCION", value: "descripcion" },
+			{ text: "CODIGO", value: "codigo" },
+			{ text: "ESTADO", value: "estado" },
+			{ text: "ACCION", value: "Accion", sortable: false },
 		],
 		desserts: [],
-		categorias: [],
+		articulo: [],
 		editedIndex: -1,
 		editedItem: {
 			nombre: "",
-			descripcion: 0,
+			descripcion: "",
+			codigo: "",
 			estado: 0,
 		},
 		defaultItem: {
 			nombre: "",
-			descripcion: 0,
+			descripcion: "",
+			codigo: "",
 			estado: 0,
 		},
 	}),
@@ -167,35 +164,11 @@ export default {
 	},
    /* metodo initialize desaparece */
 	methods: {
-		initialize() {
-			this.desserts = [
-				{
-					nombre: "Frozen Yogurt",
-					calories: 159,
-					estado: 1,
-				},
-				{
-					nombre: "Eclair",
-					descripcion: 262,
-					estado: 1,
-				},
-				{
-					nombre: "Cupcake",
-					descripcion: 305,
-					estado: 1,
-				},
-				{
-					nombre: "Gingerbread",
-					descripcion: 356,
-					estado: 1,
-				},
-			];
-		},
 		list() {
 			axios
-				.get("http://localhost:3000/api/categoria/list")
+				.get("http://localhost:3000/api/articulo/list")
 				.then((response) => {
-          this.categorias = response.data;
+          this.articulo = response.data;
           this.carga = false;
 				})
 				.catch(error);

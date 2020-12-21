@@ -3,7 +3,7 @@
 		<v-app id="inspire">
 			<v-data-table
 				:headers="headers"
-				:items="categoria"
+				:items="usuario"
 				sort-by="nombre"
 				class="elevation-1"
         :loading="carga"
@@ -11,7 +11,7 @@
 			>
 				<template v-slot:top>
 					<v-toolbar flat>
-						<v-toolbar-title>CATEGORIAS</v-toolbar-title>
+						<v-toolbar-title>USUARIOS</v-toolbar-title>
 						<v-divider class="mx-4" inset vertical></v-divider>
 						<v-spacer></v-spacer>
 						<v-dialog v-model="dialog" max-width="500px">
@@ -23,7 +23,7 @@
 									v-bind="attrs"
 									v-on="on"
 								>
-									NUEVA CATEGORIA
+									NUEVO USUARIO
 								</v-btn>
 							</template>
 							<v-card>
@@ -37,31 +37,31 @@
 											<v-col cols="12" sm="6" md="4">
 												<v-text-field
 													v-model="editedItem.nombre"
-													label="Nombre"
+													label="NOMBRE"
 												></v-text-field>
 											</v-col>
 											<v-col cols="12" sm="6" md="4">
 												<v-text-field
-													v-model="editedItem.calories"
-													label="Calories"
+													v-model="editedItem.rol"
+													label="ROL"
 												></v-text-field>
 											</v-col>
 											<v-col cols="12" sm="6" md="4">
 												<v-text-field
-													v-model="editedItem.fat"
-													label="Fat (g)"
+													v-model="editedItem.email"
+													label="EMAIL"
 												></v-text-field>
 											</v-col>
 											<v-col cols="12" sm="6" md="4">
 												<v-text-field
-													v-model="editedItem.carbs"
-													label="Carbs (g)"
+													v-model="editedItem.telefono"
+													label="TELEFONO"
 												></v-text-field>
 											</v-col>
 											<v-col cols="12" sm="6" md="4">
 												<v-text-field
-													v-model="editedItem.protein"
-													label="Protein (g)"
+													v-model="editedItem.estado"
+													label="ESTADO"
 												></v-text-field>
 											</v-col>
 										</v-row>
@@ -73,7 +73,7 @@
 									<v-btn color="blue darken-1" text @click="close">
 										CANCELAR
 									</v-btn>
-									<v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+									<v-btn color="blue darken-1" text @click="save"> GUARDAR </v-btn>
 								</v-card-actions>
 							</v-card>
 						</v-dialog>
@@ -83,7 +83,7 @@
 								<v-card-actions>
 									<v-spacer></v-spacer>
 									<v-btn color="blue darken-1" text @click="closeDelete">CANCELAR</v-btn>
-									<v-btn color="blue darken-1" text @click="deleteItemConfirm">CONFIRMADO</v-btn>
+									<v-btn color="blue darken-1" text @click="deleteItemConfirm">CONFIRMAR</v-btn>
 									<v-spacer></v-spacer>
 								</v-card-actions>
 							</v-card>
@@ -113,7 +113,7 @@
 import axios from "axios";
 
 export default {
-	name: "DatosUsuario",
+	name: 'DatosUsuario',
 
 	data: () => ({
     dialog: false,
@@ -123,33 +123,39 @@ export default {
       text: 'ID', value: 'id'
     },
 			{
-				text: "Categoria",
+				text: "USUARIO",
 				align: "start",
 				sortable: true,
 				value: "nombre",
 			},
-			{ text: "Descripcion", value: "descripcion" },
-			{ text: "Estado", value: "estado" },
-			{ text: "Accion", value: "Accion", sortable: false },
+			{ text: "ROL", value: "rol" },
+			{ text: "ESTADO", value: "estado" },
+			{ text: "EMAIL", value: "email" },
+			{ text: "TELEFONO", value: "telefono" },
+			{ text: "ACCION", value: "accion", sortable: false },
 		],
 		desserts: [],
-		categorias: [],
+		usuario: [],
 		editedIndex: -1,
 		editedItem: {
 			nombre: "",
-			descripcion: 0,
+			rol: "",
+			email: "",
+			telefono: "",
 			estado: 0,
 		},
 		defaultItem: {
 			nombre: "",
-			descripcion: 0,
+			rol: "",
+			email: "",
+			telefono: "",
 			estado: 0,
 		},
 	}),
 
 	computed: {
 		formTitle() {
-			return this.editedIndex === -1 ? "NUEVO ARTICULO" : "EDITAR ARTICULO";
+			return this.editedIndex === -1 ? "NUEVO USUARIO" : "EDITAR USUARIO";
 		},
 	},
 
@@ -167,35 +173,11 @@ export default {
 	},
    /* metodo initialize desaparece */
 	methods: {
-		initialize() {
-			this.desserts = [
-				{
-					nombre: "Frozen Yogurt",
-					calories: 159,
-					estado: 1,
-				},
-				{
-					nombre: "Eclair",
-					descripcion: 262,
-					estado: 1,
-				},
-				{
-					nombre: "Cupcake",
-					descripcion: 305,
-					estado: 1,
-				},
-				{
-					nombre: "Gingerbread",
-					descripcion: 356,
-					estado: 1,
-				},
-			];
-		},
 		list() {
 			axios
-				.get("http://localhost:3000/api/categoria/list")
+				.get("http://localhost:3000/api/usuario/list")
 				.then((response) => {
-          this.categorias = response.data;
+          this.usuario = response.data;
           this.carga = false;
 				})
 				.catch(error);
