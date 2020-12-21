@@ -113,7 +113,7 @@
 import axios from "axios";
 
 export default {
-	name: 'DatosCategoria',
+	name: 'DatosArticulo',
 
 	data: () => ({
     dialog: false,
