@@ -1,32 +1,109 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+	<v-app id="inspire">
+		<v-navigation-drawer
+			v-model="drawer"
+			app
+			src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg"
+		>
+			<v-list-item>
+				<v-list-item-content class="white--text">
+					<v-list-item-title class="title"> RAZON SOCIAL </v-list-item-title>
+					<v-list-item-subtitle> NIT </v-list-item-subtitle>
+					</v-list-item-content>
+			</v-list-item>
+
+			<v-divider></v-divider>
+
+			<v-card class="mx-auto" width="300">
+				<v-list>
+					<!-- Aterrizaje -->
+					<v-list-item :to="{name: 'Home'}">
+						<v-list-item-icon>
+							<v-icon>mdi-home</v-icon>
+						</v-list-item-icon>
+
+							<v-list-item-title>Principal</v-list-item-title>
+						</v-list-item>
+					<v-list-group :value="true" prepend-icon="mdi-account-circle">
+						<template v-slot:activator>
+							<v-list-item-title>Zona Interna</v-list-item-title>
+						</template>
+
+						<v-list-group :value="true" no-action sub-group>
+							<template v-slot:activator>
+								<v-list-item-content>
+									<v-list-item-title>Insumos</v-list-item-title>
+								</v-list-item-content>
+							</template>
+
+							<v-list-item v-for="([title, icon, ruta], i) in admins" :key="i" link :to="{name, ruta}">
+								<v-list-item-title v-text="title"></v-list-item-title>
+
+								<v-list-item-icon>
+									<v-icon v-text="icon"></v-icon>
+								</v-list-item-icon>
+							</v-list-item>
+						</v-list-group>
+
+						<v-list-group no-action sub-group>
+							<template v-slot:activator>
+								<v-list-item-content>
+									<v-list-item-title>Personal</v-list-item-title>
+								</v-list-item-content>
+							</template>
+											<!-- Adicion de rutas  to .... -->
+							<v-list-item v-for="([title, icon, enrutado], i) in cruds" :key="i" link :to="{name: enrutado}"   >
+								<v-list-item-title v-text="title"></v-list-item-title>
+
+								<v-list-item-icon>
+									<v-icon v-text="icon"></v-icon>
+								</v-list-item-icon>
+							</v-list-item>
+						</v-list-group>
+					</v-list-group>
+				</v-list>
+			</v-card>
+		</v-navigation-drawer>
+
+		<v-app-bar app color="blue darken-3" color-text class="white--text">
+			<v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+			<v-toolbar-title>TABLERO DE GESTIÓN DE USUARIOS</v-toolbar-title>
+			<v-spacer></v-spacer>
+			<v-btn icon>
+				<v-icon>mdi-magnify</v-icon>
+			</v-btn>
+
+			<v-menu left bottom>
+				<template v-slot:activator="{ on, attrs }">
+					<v-btn icon v-bind="attrs" v-on="on">
+						<v-icon>mdi-dots-vertical</v-icon>
+					</v-btn>
+				</template>
+
+				<v-list>
+					<v-list-item v-for="n in 5" :key="n" @click="() => {}">
+						<v-list-item-title>Option {{ n }}</v-list-item-title>
+					</v-list-item>
+				</v-list>
+			</v-menu>
+		</v-app-bar>
+	</v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+<script>
+  export default {
+    data: () => ({
+      admins: [
+        ['Categoria', 'mdi-account-multiple-outline', 'Categoria'],
+        ['Articulo', 'mdi-cog-outline', 'Articulo'],
+      ],
+      cruds: [
+		['Usuario', 'mdi-plus-outline', 'Usuario'],
+		['Clientes', 'mdi-plus-outline', 'Clientes'],
+		['Interesados', 'mdi-plus-outline', 'Interesados'],
+		['BlackList', 'mdi-plus-outline', 'BlackList'],
+        
+      ],
+    }),
+  }
+</script>
