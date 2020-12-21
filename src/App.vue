@@ -3,8 +3,7 @@
 		<v-navigation-drawer
 			v-model="drawer"
 			app
-			src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg"
-		>
+			src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg">
 			<v-list-item>
 				<v-list-item-content class="white--text">
 					<v-list-item-title class="title"> RAZON SOCIAL </v-list-item-title>
@@ -36,7 +35,7 @@
 								</v-list-item-content>
 							</template>
 
-							<v-list-item v-for="([title, icon, ruta], i) in admins" :key="i" link :to="{name, ruta}">
+							<v-list-item v-for="([title, icon], i) in admins" :key="i" link>
 								<v-list-item-title v-text="title"></v-list-item-title>
 
 								<v-list-item-icon>
@@ -45,14 +44,14 @@
 							</v-list-item>
 						</v-list-group>
 
-						<v-list-group no-action sub-group>
+						<v-list-group :value="true" no-action sub-group>
 							<template v-slot:activator>
 								<v-list-item-content>
 									<v-list-item-title>Personal</v-list-item-title>
 								</v-list-item-content>
 							</template>
 											<!-- Adicion de rutas  to .... -->
-							<v-list-item v-for="([title, icon, enrutado], i) in cruds" :key="i" link :to="{name: enrutado}"   >
+							<v-list-item v-for="([title, icon, ruta], i) in cruds" :key="i" :to="{name: ruta}"   >
 								<v-list-item-title v-text="title"></v-list-item-title>
 
 								<v-list-item-icon>
@@ -65,9 +64,10 @@
 			</v-card>
 		</v-navigation-drawer>
 
-		<v-app-bar app color="blue darken-3" color-text class="white--text">
+		<v-app-bar app color="blue darken-3" >
+			<!-- <v-app-bar-nav-icon   style="65px"> -->
 			<v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-			<v-toolbar-title>TABLERO DE GESTIÓN DE USUARIOS</v-toolbar-title>
+			<v-toolbar-title color-text class="white--text">TABLERO DE GESTIÓN DE USUARIOS</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-btn icon>
 				<v-icon>mdi-magnify</v-icon>
@@ -93,6 +93,7 @@
 <script>
   export default {
     data: () => ({
+	  drawer: null,
       admins: [
         ['Categoria', 'mdi-account-multiple-outline', 'Categoria'],
         ['Articulo', 'mdi-cog-outline', 'Articulo'],
@@ -100,9 +101,7 @@
       cruds: [
 		['Usuario', 'mdi-plus-outline', 'Usuario'],
 		['Clientes', 'mdi-plus-outline', 'Clientes'],
-		['Interesados', 'mdi-plus-outline', 'Interesados'],
-		['BlackList', 'mdi-plus-outline', 'BlackList'],
-        
+		      
       ],
     }),
   }
