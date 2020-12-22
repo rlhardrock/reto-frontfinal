@@ -5,9 +5,9 @@
       <router-link to="/aterrizaje"></router-link> 
       <v-btn color="##EB5F28" flat elevation="2" rounded x-large><router-link to="/catalogo">Catalogo</router-link></v-btn> |
       <v-btn color="##EB5F28" flat elevation="2" rounded x-large><router-link to="/planes">Planes</router-link></v-btn> |
-      <v-btn color="##EB5F28" flat elevation="2" rounded x-large><router-link to="/usuario">Usuario</router-link></v-btn> |
+      <!-- <v-btn color="##EB5F28" flat elevation="2" rounded x-large><router-link to="/usuario">Usuario</router-link></v-btn> |
       <v-btn color="##EB5F28" flat elevation="2" rounded x-large><router-link to="/categoria">Categoria</router-link></v-btn> |
-      <v-btn color="##EB5F28" flat elevation="2" rounded x-large><router-link to="/articulo">Articulo</router-link></v-btn>
+      <v-btn color="##EB5F28" flat elevation="2" rounded x-large><router-link to="/articulo">Articulo</router-link></v-btn> -->
       
       <v-main>
          <aterrizaje></aterrizaje>
