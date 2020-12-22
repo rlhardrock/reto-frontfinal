@@ -35,11 +35,11 @@
 								</v-list-item-content>
 							</template>
 
-							<v-list-item v-for="([title, icon], i) in admins" :key="i" link>
-								<v-list-item-title v-text="title"></v-list-item-title>
+							<v-list-item v-for="admin in admins" :key="admin.text" router :to="admin.route">
+								<v-list-item-title >{{admin.text}}</v-list-item-title>
 
 								<v-list-item-icon>
-									<v-icon v-text="icon"></v-icon>
+									<v-icon>{{admin.icon}}</v-icon>
 								</v-list-item-icon>
 							</v-list-item>
 						</v-list-group>
@@ -51,11 +51,11 @@
 								</v-list-item-content>
 							</template>
 											<!-- Adicion de rutas  to .... -->
-							<v-list-item v-for="([title, icon, ruta], i) in cruds" :key="i" :to="{name: ruta}"   >
-								<v-list-item-title v-text="title"></v-list-item-title>
+							<v-list-item v-for="crud in cruds" :key="crud.text" router :to="crud.route">
+								<v-list-item-title>{{crud.text}}</v-list-item-title>
 
 								<v-list-item-icon>
-									<v-icon v-text="icon"></v-icon>
+									<v-icon>{{crud.icon}}</v-icon>
 								</v-list-item-icon>
 							</v-list-item>
 						</v-list-group>
@@ -96,14 +96,13 @@
     data: () => ({
 	  drawer: null,
       admins: [
-        ['Categoria', 'mdi-account-multiple-outline', 'Categoria'],
-        ['Articulo', 'mdi-cog-outline', 'Articulo'],
-      ],
+		{text: 'Categoria', icon: 'mdi-account-multiple-outline' , route:'/categoria'},
+		{text: 'Articulo', icon: 'mdi-account-multiple-outline' , route:'/articulo'},
+	  ],
       cruds: [
-		['Usuario', 'mdi-plus-outline', 'Usuario'],
-		['Clientes', 'mdi-plus-outline', 'Clientes'],
-		      
-      ],
+		{text: 'Usuario', icon: 'mdi-account-multiple-outline' , route:'/usuario'},
+		{text: 'Cliente', icon: 'mdi-account-multiple-outline' , route:'/cliente'},
+	  ],
     }),
   }
 </script>
