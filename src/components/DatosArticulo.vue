@@ -93,7 +93,7 @@
 								<v-card-actions>
 									<v-spacer></v-spacer>
 									<v-btn color="blue darken-1" text @click="closeDelete">CANCELAR</v-btn>
-									<v-btn color="blue darken-1" text @click="deleteItemConfirm">CONFIRMAR</v-btn>
+									<v-btn color="blue darken-1" text @click="shiftState">CONFIRMAR</v-btn>
 									<v-spacer></v-spacer>
 								</v-card-actions>
 							</v-card>
@@ -248,9 +248,29 @@ export default {
 			this.dialogDelete = true;
 		},
 
-		deleteItemConfirm() {
-			this.desserts.splice(this.editedIndex, 1);
-			this.closeDelete();
+		shiftState() {
+			if (this.editedItem === 1) {
+				axios.put('http://localhost:300/api/articulo/deactivate',{
+					"id": this.editedItem.id,
+				})
+				.then( response => {
+					this.list();
+				})
+				.catch(error =>{
+					return error;
+				})
+			} else {
+				axios.put('http://localhost:300/api/articulo/activate',{
+					"estado": 1,
+				})
+				.then( response => {
+					this.list();
+				})
+				.catch(error =>{
+					return error;
+				})
+			}
+			this.close();
 		},
 
 		close() {

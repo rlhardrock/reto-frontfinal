@@ -89,7 +89,7 @@
 								<v-card-actions>
 									<v-spacer></v-spacer>
 									<v-btn color="blue darken-1" text @click="closeDelete">CANCELAR</v-btn>
-									<v-btn color="blue darken-1" text @click="deleteItemConfirm">CONFIRMAR</v-btn>
+									<v-btn color="blue darken-1" text @click="shiftState">CONFIRMAR</v-btn>
 									<v-spacer></v-spacer>
 								</v-card-actions>
 							</v-card>
@@ -190,7 +190,7 @@ export default {
 		},
 
 		editItem(item) {
-			this.editedIndex = this.desserts.indexOf(item);
+			this.editedIndex = item.id;
 			this.editedItem = Object.assign({}, item);
 			this.dialog = true;
 		},
@@ -201,9 +201,29 @@ export default {
 			this.dialogDelete = true;
 		},
 
-		deleteItemConfirm() {
-			this.desserts.splice(this.editedIndex, 1);
-			this.closeDelete();
+		shiftState() {
+			if (this.editedItem === 1) {
+				axios.put('http://localhost:300/api/usuario/deactivate',{
+					"id": this.editedItem.id,
+				})
+				.then( response => {
+					this.list();
+				})
+				.catch(error =>{
+					return error;
+				})
+			} else {
+				axios.put('http://localhost:300/api/usuario/activate',{
+					"estado": 1,
+				})
+				.then( response => {
+					this.list();
+				})
+				.catch(error =>{
+					return error;
+				})
+			}
+			this.close();
 		},
 
 		close() {
@@ -224,9 +244,33 @@ export default {
 
 		save() {
 			if (this.editedIndex > -1) {
-				Object.assign(this.desserts[this.editedIndex], this.editedItem);
+				axios.put('http://localhost:300/api/usuario/update',{
+					"id": this.editedItem.id,
+					"nombre": this.editedItem.nombre,
+					"rol": this.editedItem.rol,
+					"email": this.editedItem.email,
+					"telefono": this.editedItem.telefono,
+				})
+				.then( response => {
+					this.list();
+				})
+				.catch(error =>{
+					return error;
+				})
 			} else {
-				this.desserts.push(this.editedItem);
+				axios.post('http://localhost:300/api/usuario/add',{
+					"estado": 1,
+					"nombre": this.editedItem.nombre,
+					"rol": this.editedItem.rol,
+					"email": this.editedItem.email,
+					"telefono": this.editedItem.telefono,
+				})
+				.then( response => {
+					this.list();
+				})
+				.catch(error =>{
+					return error;
+				})
 			}
 			this.close();
 		},
