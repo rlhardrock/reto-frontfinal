@@ -55,9 +55,9 @@ export default {
     name: 'CasosExito',
     data: () => ({
       cards: [
-        { title: 'METALURGIA', src: require('../assets/team/team01.png'), flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
-        { title: 'CONFITERIA', src: require('../assets/team/team03.png'), flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
-        { title: 'EMBUTIDOS', src: require('../assets/team/team04.png'), flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
+        { title: 'DETERGENTE', src: require('../assets/team/team01.png'), flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
+        { title: 'PANADERIA', src: require('../assets/team/team03.png'), flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
+        { title: 'ALIMENTOS', src: require('../assets/team/team04.png'), flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
         { title: 'PAPELERIA', src: require('../assets/team/team05.png'), flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
       ],
     }),
