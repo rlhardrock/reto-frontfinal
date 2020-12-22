@@ -15,16 +15,16 @@
     return {
       items: [
         {
-          src: 'https://images.app.goo.gl/gWsE724UQLdbUvVM6',
+          src: require('../assets/img/mezladora1.jpg'),
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+          src: require('../assets/img/mezladora2.jpg'),
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+          src: require('../assets/img/mezladora3.jpg'),
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+          src: require('../assets/img/mezladora4.jpg'),
         },
       ],
     }
