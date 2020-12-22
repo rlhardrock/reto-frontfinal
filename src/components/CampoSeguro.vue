@@ -21,17 +21,17 @@
 							<v-icon>mdi-home</v-icon>
 						</v-list-item-icon>
 
-							<v-list-item-title>Principal</v-list-item-title>
+							<v-list-item-title>PRINCIPAL</v-list-item-title>
 						</v-list-item>
 					<v-list-group :value="true" prepend-icon="mdi-account-circle">
 						<template v-slot:activator>
-							<v-list-item-title>Zona Interna</v-list-item-title>
+							<v-list-item-title>ZONA INTERNA</v-list-item-title>
 						</template>
 
 						<v-list-group :value="true" no-action sub-group>
 							<template v-slot:activator>
 								<v-list-item-content>
-									<v-list-item-title>Insumos</v-list-item-title>
+									<v-list-item-title>INSUMOS</v-list-item-title>
 								</v-list-item-content>
 							</template>
 
@@ -47,7 +47,7 @@
 						<v-list-group :value="true" no-action sub-group>
 							<template v-slot:activator>
 								<v-list-item-content>
-									<v-list-item-title>Personal</v-list-item-title>
+									<v-list-item-title>PERSONAL</v-list-item-title>
 								</v-list-item-content>
 							</template>
 											<!-- Adicion de rutas  to .... -->
@@ -91,6 +91,9 @@
 </template>
 
 <script>
+
+import axios from "axios";
+
   export default {
     name: 'CampoSeguro',
     data: () => ({

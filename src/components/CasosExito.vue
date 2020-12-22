@@ -55,10 +55,10 @@ export default {
     name: 'CasosExito',
     data: () => ({
       cards: [
-        { title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
-        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
-        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
+        { title: 'METALURGIA', src: require('../assets/team/team01.png'), flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
+        { title: 'CONFITERIA', src: require('../assets/team/team03.png'), flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
+        { title: 'EMBUTIDOS', src: require('../assets/team/team04.png'), flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
+        { title: 'PAPELERIA', src: require('../assets/team/team05.png'), flex: 6, exito: 'CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito CasoExito ' },
       ],
     }),
   }

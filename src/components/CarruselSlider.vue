@@ -15,16 +15,16 @@
     return {
       items: [
         {
-          src: require('../assets/img/mezladora1.jpg'),
+          src: require('../assets/img/mezcladora01.jpg'),
         },
         {
-          src: require('../assets/img/mezladora2.jpg'),
+          src: require('../assets/img/mezcladora02.jpg'),
         },
         {
-          src: require('../assets/img/mezladora3.jpg'),
+          src: require('../assets/img/mezcladora03.jpg'),
         },
         {
-          src: require('../assets/img/mezladora4.jpg'),
+          src: require('../assets/img/mezcladora04.jpeg'),
         },
       ],
     }

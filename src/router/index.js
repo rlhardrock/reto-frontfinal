@@ -21,6 +21,24 @@ const routes = [
       public: true
     }
   },
+  ,
+  {
+    path: '/catalogo',
+    name: 'Catalogo',
+    component: () => import(/* webpackChunkName: "catalogo" */ '../views/Catalogo.vue'),
+    meta:{
+      public: true
+    }
+  },
+  ,
+  {
+    path: '/planes',
+    name: 'Planes',
+    component: () => import(/* webpackChunkName: "planes" */ '../views/Planes.vue'),
+    meta:{
+      public: true
+    }
+  },
   {
     path: '/dashboard',
     name: 'Dashboard',
